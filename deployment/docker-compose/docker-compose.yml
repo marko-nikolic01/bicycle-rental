@@ -1,0 +1,39 @@
+version: "3.9"
+
+services:
+
+  central-bike-rental:
+    build: ../../central-bicycle-rental
+    depends_on:
+      - central-bike-rental-database
+    environment:
+      DATABASE_HOST: central-bike-rental-database
+      DATABASE_PORT: 5432
+      DATABASE_NAME: central-bicycle-rental
+    ports:
+      - "8000:8000"
+
+  central-bike-rental-database:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: central-bicycle-rental
+    volumes:
+      - central-bike-rental-database-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: postgres@postgres.com
+      PGADMIN_DEFAULT_PASSWORD: postgres
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+
+volumes:
+  central-bike-rental-database-data:
+  pgadmin-data:
