@@ -18,3 +18,6 @@ class Rental(Base):
 
     def is_active(self) -> bool:
         return self.rental_end_date is None or self.rental_end_date > datetime.utcnow()
+    
+    def return_rental(self):
+        self.rental_end_date = datetime.utcnow()

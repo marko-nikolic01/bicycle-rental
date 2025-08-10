@@ -18,3 +18,15 @@ class RentalRecord(Base):
     
     def add_rental(self, rental: Rental):
         self.rentals.append(rental)
+
+    def get_rental(self, bike_id: UUID):
+        for rental in self.rentals:
+            if rental.bike_id == bike_id and rental.is_active():
+                return rental
+        return None
+
+    def return_rental(self, bike_id):
+        rental = self.get_rental(bike_id)
+        if rental:
+            rental.return_rental()
+        return rental

@@ -29,3 +29,9 @@ class User(Base):
         if not self.rental_record:
             self.rental_record = RentalRecord()
         self.rental_record.add_rental(rental)
+
+    def get_rental(self, bike_id: UUID):
+        return self.rental_record.get_rental(bike_id)
+    
+    def return_rental(self, bike_id):
+        return self.rental_record.return_rental(bike_id)

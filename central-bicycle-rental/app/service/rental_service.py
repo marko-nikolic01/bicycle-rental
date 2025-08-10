@@ -1,4 +1,5 @@
 from fastapi import HTTPException, status
+from datetime import datetime
 from app.repository import UserRepository
 from app.model import Rental
 from app.dto import RentalDTO, RentalSuccessDTO, ReturnRentalDTO, ReturnRentalSuccessDTO
@@ -44,7 +45,7 @@ class RentalService:
             rental_date=rental.rental_date
         )
     
-    def return_bike(self, return_dto: ReturnRentalDTO) -> ReturnRentalSuccessDTO:
+    def return_rental(self, return_dto: ReturnRentalDTO) -> ReturnRentalSuccessDTO:
         user = self.user_repository.get_by_national_id(return_dto.national_id)
         if not user:
             raise HTTPException(
@@ -52,21 +53,17 @@ class RentalService:
                 detail=f"User with national ID {return_dto.national_id} not found."
             )
         
-        # Find active rental for this bike
-        rental = user.rental_record.find_active_rental_by_bike_id(return_dto.bike_id)
+        rental = user.return_rental(return_dto.bike_id)
         if not rental:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail=f"No active rental found for bike ID {return_dto.bike_id} for user {return_dto.national_id}."
             )
         
-        # Mark rental as returned by setting rental_end_date to now
-        rental.rental_end_date = datetime.utcnow()
-        
-        # Save user with updated rental
         self.user_repository.save(user)
         
         return ReturnRentalSuccessDTO(
+            id=rental.id,
             national_id=user.national_id,
             bike_id=rental.bike_id,
             rental_date=rental.rental_date,
