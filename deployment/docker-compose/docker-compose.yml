@@ -2,28 +2,99 @@ version: "3.9"
 
 services:
 
-  central-bike-rental:
+  # Central bicycle rental
+  central-bicycle-rental:
     build: ../../central-bicycle-rental
     depends_on:
-      - central-bike-rental-database
+      - central-bicycle-rental-database
     environment:
-      DATABASE_HOST: central-bike-rental-database
+      DATABASE_HOST: central-bicycle-rental-database
       DATABASE_PORT: 5432
       DATABASE_NAME: central-bicycle-rental
     ports:
       - "8000:8000"
 
-  central-bike-rental-database:
+  # Local bicycle rentals (NS, SU, KG)
+  local-bicycle-rental-ns:
+    build: ../../local-bicycle-rental
+    depends_on:
+      - local-bicycle-rental-database-ns
+    environment:
+      DATABASE_HOST: local-bicycle-rental-database-ns
+      DATABASE_PORT: 5432
+      DATABASE_NAME: local-bicycle-rental-ns
+    ports:
+      - "8001:8000"
+
+  local-bicycle-rental-su:
+    build: ../../local-bicycle-rental
+    depends_on:
+      - local-bicycle-rental-database-su
+    environment:
+      DATABASE_HOST: local-bicycle-rental-database-su
+      DATABASE_PORT: 5432
+      DATABASE_NAME: local-bicycle-rental-su
+    ports:
+      - "8002:8000"
+
+  local-bicycle-rental-kg:
+    build: ../../local-bicycle-rental
+    depends_on:
+      - local-bicycle-rental-database-kg
+    environment:
+      DATABASE_HOST: local-bicycle-rental-database-kg
+      DATABASE_PORT: 5432
+      DATABASE_NAME: local-bicycle-rental-kg
+    ports:
+      - "8003:8000"
+
+  # Central bicycle rental database
+  central-bicycle-rental-database:
     image: postgres:15
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: central-bicycle-rental
     volumes:
-      - central-bike-rental-database-data:/var/lib/postgresql/data
+      - central-bicycle-rental-database-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
 
+  # Local bicycle rental databases (NS, SU, KG)
+  local-bicycle-rental-database-ns:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: local-bicycle-rental-ns
+    volumes:
+      - local-bicycle-rental-database-ns-data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+
+  local-bicycle-rental-database-su:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: local-bicycle-rental-su
+    volumes:
+      - local-bicycle-rental-database-su-data:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"
+
+  local-bicycle-rental-database-kg:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: local-bicycle-rental-kg
+    volumes:
+      - local-bicycle-rental-database-kg-data:/var/lib/postgresql/data
+    ports:
+      - "5435:5432"
+
+  # Database UI
   pgadmin:
     image: dpage/pgadmin4
     ports:
@@ -35,5 +106,8 @@ services:
       - pgadmin-data:/var/lib/pgadmin
 
 volumes:
-  central-bike-rental-database-data:
+  central-bicycle-rental-database-data:
+  local-bicycle-rental-database-ns-data:
+  local-bicycle-rental-database-su-data:
+  local-bicycle-rental-database-kg-data:
   pgadmin-data:
