@@ -1,4 +1,5 @@
 from fastapi import HTTPException, status
+from typing import List
 from app.repository import UserRepository
 from app.dto import UserDetailsDTO, UserDetailsAddressDTO
 
@@ -27,3 +28,26 @@ class UserService:
             ),
             active_rentals_count=user.count_active_rentals()
         )
+    
+    def get_all_user_details(self) -> List[UserDetailsDTO]:
+        user_details = []
+
+        users = self.user_repository.get_all()
+        for user in users:
+            user_details.append(
+                UserDetailsDTO(
+                    id=user.id,
+                    name=user.name,
+                    last_name=user.last_name,
+                    national_id=user.national_id,
+                    address=UserDetailsAddressDTO(
+                        country=user.address.country,
+                        city=user.address.city,
+                        street=user.address.street,
+                        number=user.address.number
+                    ),
+                    active_rentals_count=user.count_active_rentals()
+                )
+            )
+
+        return user_details
