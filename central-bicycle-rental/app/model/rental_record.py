@@ -2,6 +2,7 @@ import uuid
 from sqlalchemy import Column
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
+from .rental import Rental
 from ..database import Base
 
 class RentalRecord(Base):
@@ -11,3 +12,9 @@ class RentalRecord(Base):
 
     rentals = relationship("Rental", back_populates="rental_record", cascade="all, delete-orphan")
     user = relationship("User", back_populates="rental_record", uselist=False)
+
+    def count_active_rentals(self) -> int:
+        return sum(1 for rental in self.rentals if rental.is_active())
+    
+    def add_rental(self, rental: Rental):
+        self.rentals.append(rental)

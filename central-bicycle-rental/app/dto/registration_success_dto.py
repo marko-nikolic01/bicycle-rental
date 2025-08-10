@@ -8,6 +8,3 @@ class RegistrationSuccessDTO(BaseModel):
     last_name: str
     national_id: str
     address: RegistrationSuccessAddressDTO
-
-    class Config:
-        orm_mode = True

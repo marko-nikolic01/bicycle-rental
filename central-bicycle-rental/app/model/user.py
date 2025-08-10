@@ -19,3 +19,13 @@ class User(Base):
 
     rental_record_id = Column(UUID(as_uuid=True), ForeignKey("rental_records.id"))
     rental_record = relationship("RentalRecord", uselist=False, back_populates="user")
+
+    def count_active_rentals(self) -> int:
+        if not self.rental_record:
+            return 0
+        return self.rental_record.count_active_rentals()
+
+    def add_rental(self, rental: Rental):
+        if not self.rental_record:
+            self.rental_record = RentalRecord()
+        self.rental_record.add_rental(rental)

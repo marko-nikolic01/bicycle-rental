@@ -8,8 +8,8 @@ class RegistrationService:
         self.user_repository = user_repository
 
     def register(self, registration_dto: RegistrationDTO) -> RegistrationSuccessDTO:
-        existing_user = self.user_repository.get_by_national_id(registration_dto.national_id)
-        if existing_user:
+        user = self.user_repository.get_by_national_id(registration_dto.national_id)
+        if user:
             raise HTTPException(
                 status_code=status.HTTP_409_CONFLICT,
                 detail=f"User with national ID {registration_dto.national_id} already exists."

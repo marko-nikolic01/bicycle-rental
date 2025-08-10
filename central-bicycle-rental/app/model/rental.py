@@ -2,7 +2,6 @@ import uuid
 from sqlalchemy import Column, DateTime, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
-from .rental import Rental
 from ..database import Base
 from datetime import datetime
 
@@ -16,3 +15,6 @@ class Rental(Base):
 
     rental_record_id = Column(UUID(as_uuid=True), ForeignKey("rental_records.id"))
     rental_record = relationship("RentalRecord", back_populates="rentals")
+
+    def is_active(self) -> bool:
+        return self.rental_end_date is None or self.rental_end_date > datetime.utcnow()

@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-class RegistrationSuccessAddressDTO(BaseModel):
+class UserDetailsAddressDTO(BaseModel):
     country: str
     city: str
     street: str

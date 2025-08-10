@@ -1,9 +1,11 @@
 from fastapi import FastAPI
 from .database import engine, Base
-from app.controller import registration_router
+from app.controller import registration_router, rental_router, user_router
 
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Central bicycle rental")
 
 app.include_router(registration_router)
+app.include_router(rental_router)
+app.include_router(user_router)
