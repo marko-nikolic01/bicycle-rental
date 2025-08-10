@@ -2,6 +2,8 @@ import uuid
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
+from .rental_record import RentalRecord
+from .rental import Rental
 from ..database import Base
 
 class User(Base):
