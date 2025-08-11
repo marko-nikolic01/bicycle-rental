@@ -15,6 +15,7 @@ services:
     ports:
       - "8000:8000"
     networks:
+      - bicycle-rental-network
       - central-bicycle-rental-network
 
   # Local bicycle rentals (NS, SU, KG)
@@ -27,9 +28,12 @@ services:
       DATABASE_HOST: local-bicycle-rental-database-ns
       DATABASE_PORT: 5432
       DATABASE_NAME: local-bicycle-rental-ns
+      CENTRAL_BICYCLE_RENTAL_HOST: central-bicycle-rental
+      CENTRAL_BICYCLE_RENTAL_PORT: 8000
     ports:
       - "8001:8000"
     networks:
+      - bicycle-rental-network
       - local-bicycle-rental-network-ns
 
   # Central bicycle rental database
@@ -90,6 +94,8 @@ volumes:
   pgadmin-data: {}
 
 networks:
+  bicycle-rental-network:
+    driver: bridge
   central-bicycle-rental-network:
     driver: bridge
   local-bicycle-rental-network-ns:
