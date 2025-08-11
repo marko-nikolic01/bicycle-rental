@@ -6,51 +6,40 @@ services:
   central-bicycle-rental:
     build: ../../central-bicycle-rental
     depends_on:
-      - central-bicycle-rental-database
+      central-bicycle-rental-database:
+        condition: service_healthy
     environment:
       DATABASE_HOST: central-bicycle-rental-database
       DATABASE_PORT: 5432
       DATABASE_NAME: central-bicycle-rental
     ports:
       - "8000:8000"
+    networks:
+      - central-bicycle-rental-network
 
   # Local bicycle rentals (NS, SU, KG)
   local-bicycle-rental-ns:
     build: ../../local-bicycle-rental
     depends_on:
-      - local-bicycle-rental-database-ns
+      local-bicycle-rental-database-ns:
+        condition: service_healthy
     environment:
       DATABASE_HOST: local-bicycle-rental-database-ns
       DATABASE_PORT: 5432
       DATABASE_NAME: local-bicycle-rental-ns
     ports:
       - "8001:8000"
-
-  local-bicycle-rental-su:
-    build: ../../local-bicycle-rental
-    depends_on:
-      - local-bicycle-rental-database-su
-    environment:
-      DATABASE_HOST: local-bicycle-rental-database-su
-      DATABASE_PORT: 5432
-      DATABASE_NAME: local-bicycle-rental-su
-    ports:
-      - "8002:8000"
-
-  local-bicycle-rental-kg:
-    build: ../../local-bicycle-rental
-    depends_on:
-      - local-bicycle-rental-database-kg
-    environment:
-      DATABASE_HOST: local-bicycle-rental-database-kg
-      DATABASE_PORT: 5432
-      DATABASE_NAME: local-bicycle-rental-kg
-    ports:
-      - "8003:8000"
+    networks:
+      - local-bicycle-rental-network-ns
 
   # Central bicycle rental database
   central-bicycle-rental-database:
     image: postgres:15
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -59,10 +48,17 @@ services:
       - central-bicycle-rental-database-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    networks:
+      - central-bicycle-rental-network
 
   # Local bicycle rental databases (NS, SU, KG)
   local-bicycle-rental-database-ns:
     image: postgres:15
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -71,28 +67,8 @@ services:
       - local-bicycle-rental-database-ns-data:/var/lib/postgresql/data
     ports:
       - "5433:5432"
-
-  local-bicycle-rental-database-su:
-    image: postgres:15
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: local-bicycle-rental-su
-    volumes:
-      - local-bicycle-rental-database-su-data:/var/lib/postgresql/data
-    ports:
-      - "5434:5432"
-
-  local-bicycle-rental-database-kg:
-    image: postgres:15
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: local-bicycle-rental-kg
-    volumes:
-      - local-bicycle-rental-database-kg-data:/var/lib/postgresql/data
-    ports:
-      - "5435:5432"
+    networks:
+      - local-bicycle-rental-network-ns
 
   # Database UI
   pgadmin:
@@ -104,10 +80,17 @@ services:
       PGADMIN_DEFAULT_PASSWORD: postgres
     volumes:
       - pgadmin-data:/var/lib/pgadmin
+    networks:
+      - central-bicycle-rental-network
+      - local-bicycle-rental-network-ns
 
 volumes:
-  central-bicycle-rental-database-data:
-  local-bicycle-rental-database-ns-data:
-  local-bicycle-rental-database-su-data:
-  local-bicycle-rental-database-kg-data:
-  pgadmin-data:
+  central-bicycle-rental-database-data: {}
+  local-bicycle-rental-database-ns-data: {}
+  pgadmin-data: {}
+
+networks:
+  central-bicycle-rental-network:
+    driver: bridge
+  local-bicycle-rental-network-ns:
+    driver: bridge

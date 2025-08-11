@@ -1,5 +1,7 @@
 import os
-from sqlalchemy import create_engine
+import time
+import sqlalchemy.exc
+from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker, declarative_base
 
 DATABASE_HOST = os.getenv("DATABASE_HOST", "central-bicycle-rental-database")

@@ -1,6 +1,13 @@
 from fastapi import FastAPI
-from .database import engine, Base
+from app.model import Bicycle, BicycleType
+from app.database import engine, Base, seed_bicycles
 
-Base.metadata.create_all(bind=engine)
+def create_app():
+    Base.metadata.create_all(bind=engine)
+    seed_bicycles()
 
-app = FastAPI(title="Local bicycle rental")
+    app = FastAPI(title="Local bicycle rental")
+    
+    return app
+
+app = create_app()
