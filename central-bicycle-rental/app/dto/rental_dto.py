@@ -4,5 +4,5 @@ from datetime import datetime
 
 class RentalDTO(BaseModel):
     national_id: str
-    bike_id: UUID
+    bicycle_id: UUID
     rental_date: datetime
