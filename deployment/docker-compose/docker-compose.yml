@@ -4,7 +4,8 @@ services:
 
   # Central bicycle rental
   central-bicycle-rental:
-    build: ../../central-bicycle-rental
+    image: markoni01/central-bicycle-rental:latest
+    container_name: central-bicycle-rental
     depends_on:
       central-bicycle-rental-database:
         condition: service_healthy
@@ -20,7 +21,8 @@ services:
 
   # Local bicycle rentals (NS, SU, KG)
   local-bicycle-rental-ns:
-    build: ../../local-bicycle-rental
+    image: markoni01/local-bicycle-rental:latest
+    container_name: local-bicycle-rental-ns
     depends_on:
       local-bicycle-rental-database-ns:
         condition: service_healthy
@@ -39,6 +41,7 @@ services:
   # Central bicycle rental database
   central-bicycle-rental-database:
     image: postgres:15
+    container_name: central-bicycle-rental-database
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
@@ -58,6 +61,7 @@ services:
   # Local bicycle rental databases (NS, SU, KG)
   local-bicycle-rental-database-ns:
     image: postgres:15
+    container_name: local-bicycle-rental-database-ns
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
