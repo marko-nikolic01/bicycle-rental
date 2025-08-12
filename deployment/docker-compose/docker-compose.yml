@@ -171,6 +171,8 @@ services:
     networks:
       - central-bicycle-rental-network
       - local-bicycle-rental-network-ns
+      - local-bicycle-rental-network-su
+      - local-bicycle-rental-network-kg
 
 volumes:
   central-bicycle-rental-database-data:
