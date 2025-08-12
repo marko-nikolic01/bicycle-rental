@@ -5,5 +5,5 @@ from datetime import datetime
 class RentalSuccessDTO(BaseModel):
     id: UUID
     national_id: str
-    bike_id: UUID
+    bicycle_id: UUID
     rental_date: datetime

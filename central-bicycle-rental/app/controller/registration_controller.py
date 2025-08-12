@@ -5,7 +5,7 @@ from app.repository import UserRepository
 from app.service import RegistrationService
 from app.dto import RegistrationDTO, RegistrationSuccessDTO
 
-router = APIRouter(prefix="/users", tags=["Users"])
+router = APIRouter(prefix="/api/users", tags=["Users"])
 
 @router.post("/", response_model=RegistrationSuccessDTO, status_code=status.HTTP_201_CREATED)
 def register(registration_dto: RegistrationDTO, db: Session = Depends(get_db)):

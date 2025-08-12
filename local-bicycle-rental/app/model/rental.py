@@ -1,5 +1,5 @@
 import uuid
-from sqlalchemy import Column, DateTime, ForeignKey
+from sqlalchemy import Column, String, DateTime, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from ..database import Base
@@ -9,7 +9,7 @@ class Rental(Base):
     __tablename__ = "rentals"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    bicycle_id = Column(UUID(as_uuid=True), nullable=False)
+    user_id = Column(String(13), nullable=False)
     rental_date = Column(DateTime, default=datetime.utcnow)
     rental_end_date = Column(DateTime, nullable=True)
 
@@ -18,6 +18,3 @@ class Rental(Base):
 
     def is_active(self) -> bool:
         return self.rental_end_date is None or self.rental_end_date > datetime.utcnow()
-    
-    def return_rental(self):
-        self.rental_end_date = datetime.utcnow()

@@ -5,7 +5,7 @@ from app.repository import UserRepository
 from app.service import RentalService
 from app.dto import RentalDTO, RentalSuccessDTO, ReturnRentalDTO, ReturnRentalSuccessDTO
 
-router = APIRouter(prefix="/rentals", tags=["Rentals"])
+router = APIRouter(prefix="/api/rentals", tags=["Rentals"])
 
 @router.post("/", response_model=RentalSuccessDTO, status_code=status.HTTP_201_CREATED)
 def rent(rental_dto: RentalDTO, db: Session = Depends(get_db)):
