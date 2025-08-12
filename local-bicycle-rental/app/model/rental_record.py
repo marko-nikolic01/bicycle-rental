@@ -21,3 +21,10 @@ class RentalRecord(Base):
     
     def add_rental(self, rental: Rental):
         self.rentals.append(rental)
+    
+    def return_rental(self):
+        for rental in self.rentals:
+            if rental.is_active():
+                rental.return_rental()
+                return rental
+        return None
