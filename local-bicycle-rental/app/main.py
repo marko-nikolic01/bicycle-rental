@@ -1,7 +1,6 @@
 from fastapi import FastAPI
-from app.model import Bicycle
 from app.database import engine, Base, seed_bicycles
-from app.controller import registration_router
+from app.controller import registration_router, rental_router, bicycle_router
 
 def create_app():
     Base.metadata.create_all(bind=engine)
@@ -10,6 +9,8 @@ def create_app():
     app = FastAPI(title="Local bicycle rental")
 
     app.include_router(registration_router)
+    app.include_router(rental_router)
+    app.include_router(bicycle_router)
     
     return app
 
