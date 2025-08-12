@@ -24,3 +24,5 @@ class Bicycle(Base):
             self.rental_record = RentalRecord()
         self.rental_record.add_rental(rental)
 
+    def return_rental(self):
+        return self.rental_record.return_rental()

@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.repository import BicycleRepository
 from app.service import RentalService
-from app.dto import RentalDTO, RentalSuccessDTO
+from app.dto import RentalDTO, RentalSuccessDTO, ReturnRentalDTO, ReturnRentalSuccessDTO
 
 router = APIRouter(prefix="/api/rentals", tags=["Rentals"])
 
@@ -13,3 +13,10 @@ def rent(rental_dto: RentalDTO, db: Session = Depends(get_db)):
     rental_service = RentalService(bicycle_repository)
 
     return rental_service.rent(rental_dto)
+
+@router.delete("/", response_model=ReturnRentalSuccessDTO, status_code=status.HTTP_200_OK)
+def return_rental(return_dto: ReturnRentalDTO, db: Session = Depends(get_db)):
+    bicycle_repository = BicycleRepository(db)
+    rental_service = RentalService(bicycle_repository)
+
+    return rental_service.return_rental(return_dto)

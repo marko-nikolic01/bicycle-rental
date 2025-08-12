@@ -5,6 +5,9 @@ from app.model import Bicycle, BicycleType
 class BicycleRepository:
     def __init__(self, db: Session):
         self.db = db
+    
+    def get_by_id(self, id: str) -> Bicycle | None:
+        return self.db.query(Bicycle).filter(Bicycle.id == id).first()
 
     def get_by_id_and_type(self, id: str, type: BicycleType) -> Bicycle | None:
         return self.db.query(Bicycle).filter(

@@ -4,7 +4,7 @@ import requests
 import os
 from app.repository import BicycleRepository
 from app.model import Rental
-from app.dto import RentalDTO, RentalSuccessDTO
+from app.dto import RentalDTO, RentalSuccessDTO, ReturnRentalDTO, ReturnRentalSuccessDTO
 
 class RentalService:
     def __init__(self, bicycle_repository: BicycleRepository):
@@ -19,13 +19,13 @@ class RentalService:
         if not bicycle:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND, 
-                detail=f"Bicycle with ID {rental_dto.national_id} and type {rental_dto.bicycle_type.value} not found."
+                detail=f"Bicycle with ID {rental_dto.bicycle_id} and type {rental_dto.bicycle_type.value} not found."
             )
         
         if not bicycle.can_rent():
             raise HTTPException(
                 status_code=status.HTTP_409_CONFLICT, 
-                detail=f"Bicycle with ID {rental_dto.national_id} and type {rental_dto.bicycle_type.value} is already rented."
+                detail=f"Bicycle with ID {rental_dto.bicycle_id} and type {rental_dto.bicycle_type.value} is already rented."
             )
 
         response = requests.post(
@@ -62,4 +62,42 @@ class RentalService:
             bicycle_id=bicycle.id,
             bicycle_type=bicycle.type,
             rental_date=rental.rental_date
+        )
+    
+    def return_rental(self, return_dto: ReturnRentalDTO) -> ReturnRentalSuccessDTO:
+        bicycle = self.bicycle_repository.get_by_id(return_dto.bicycle_id)
+        if not bicycle:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Bicycle with ID {return_dto.bicycle_id} not found."
+            )
+        
+        response = requests.delete(
+            f"{self.CENTRAL_BICYCLE_RENTAL_URL}/rentals",
+            data=return_dto.model_dump_json(),
+            headers={"Content-Type": "application/json"}
+        )
+
+        if not response.ok:
+            return JSONResponse(
+                status_code=response.status_code,
+                content=response.json()
+            )
+        
+        rental = bicycle.return_rental()
+        if not rental:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"No active rental found for bicycle ID {return_dto.bicycle_id} for user {return_dto.national_id}."
+            )
+        
+        self.bicycle_repository.save(bicycle)
+        
+        return ReturnRentalSuccessDTO(
+            id=rental.id,
+            national_id=rental.user_id,
+            bicycle_id=bicycle.id,
+            bicycle_type=bicycle.type,
+            rental_date=rental.rental_date,
+            rental_end_date=rental.rental_end_date
         )
