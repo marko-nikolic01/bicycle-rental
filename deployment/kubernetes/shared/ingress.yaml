@@ -8,10 +8,17 @@ spec:
   rules:
   - http:
       paths:
-      - path: /central(/|$)(.*)
+      - path: /central-bicycle-rental(/|$)(.*)
         pathType: ImplementationSpecific
         backend:
           service:
             name: central-bicycle-rental
+            port:
+              number: 8000
+      - path: /local-bicycle-rental-ns(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: local-bicycle-rental-ns
             port:
               number: 8000

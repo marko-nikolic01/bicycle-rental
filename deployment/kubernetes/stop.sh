@@ -3,7 +3,6 @@
 # Folder variables
 CENTRAL_FOLDER="central-bicycle-rental"
 NS_FOLDER="local-bicycle-rental-ns"
-SHARED_FOLDER="shared"
 
 # Shared resources
 minikube kubectl -- delete -f "$SHARED_FOLDER/ingress.yaml"
@@ -25,7 +24,7 @@ minikube kubectl -- delete -f "$NS_FOLDER/local-bicycle-rental-database-ns-secre
 minikube kubectl -- delete -f "$NS_FOLDER/local-bicycle-rental-database-ns-volume-claim.yaml"
 minikube kubectl -- delete -f "$NS_FOLDER/local-bicycle-rental-database-ns-volume.yaml"
 
-# Wait a few seconds for PVCs to terminate
-echo "Waiting for PVCs to terminate..."
-sleep 10
+# Print remaining resources
+minikube kubectl -- get pods
 minikube kubectl -- get pvc
+minikube kubectl -- get pv
