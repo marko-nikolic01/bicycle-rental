@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: local-bicycle-rental-kg-config
+data:
+  DATABASE_HOST: local-bicycle-rental-database-kg
+  DATABASE_PORT: "5432"
+  DATABASE_NAME: local-bicycle-rental-kg
+  CENTRAL_BICYCLE_RENTAL_HOST: central-bicycle-rental
+  CENTRAL_BICYCLE_RENTAL_PORT: "8000"

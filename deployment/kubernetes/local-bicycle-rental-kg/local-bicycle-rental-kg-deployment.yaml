@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: local-bicycle-rental-kg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: local-bicycle-rental-kg
+  template:
+    metadata:
+      labels:
+        app: local-bicycle-rental-kg
+    spec:
+      containers:
+      - name: local-bicycle-rental-kg
+        image: markoni01/local-bicycle-rental:latest
+        envFrom:
+        - configMapRef:
+            name: local-bicycle-rental-kg-config
+        ports:
+        - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: local-bicycle-rental-kg
+spec:
+  selector:
+    app: local-bicycle-rental-kg
+  ports:
+    - port: 8000
+      targetPort: 8000

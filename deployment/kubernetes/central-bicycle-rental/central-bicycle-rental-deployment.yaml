@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: central-bicycle-rental
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: central-bicycle-rental
+  template:
+    metadata:
+      labels:
+        app: central-bicycle-rental
+    spec:
+      containers:
+      - name: central-bicycle-rental
+        image: markoni01/central-bicycle-rental:latest
+        envFrom:
+        - configMapRef:
+            name: central-bicycle-rental-config
+        ports:
+        - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: central-bicycle-rental
+spec:
+  selector:
+    app: central-bicycle-rental
+  ports:
+    - port: 8000
+      targetPort: 8000

@@ -9,10 +9,8 @@ services:
     depends_on:
       central-bicycle-rental-database:
         condition: service_healthy
-    environment:
-      DATABASE_HOST: central-bicycle-rental-database
-      DATABASE_PORT: 5432
-      DATABASE_NAME: central-bicycle-rental
+    env_file:
+      - ./central-bicycle-rental/central-bicycle-rental.env
     ports:
       - "8000:8000"
     networks:
@@ -28,12 +26,8 @@ services:
         condition: service_started
       local-bicycle-rental-database-ns:
         condition: service_healthy
-    environment:
-      DATABASE_HOST: local-bicycle-rental-database-ns
-      DATABASE_PORT: 5432
-      DATABASE_NAME: local-bicycle-rental-ns
-      CENTRAL_BICYCLE_RENTAL_HOST: central-bicycle-rental
-      CENTRAL_BICYCLE_RENTAL_PORT: 8000
+    env_file:
+      - ./local-bicycle-rental-ns/local-bicycle-rental-ns.env
     ports:
       - "8001:8000"
     networks:
@@ -48,12 +42,8 @@ services:
         condition: service_started
       local-bicycle-rental-database-su:
         condition: service_healthy
-    environment:
-      DATABASE_HOST: local-bicycle-rental-database-su
-      DATABASE_PORT: 5432
-      DATABASE_NAME: local-bicycle-rental-su
-      CENTRAL_BICYCLE_RENTAL_HOST: central-bicycle-rental
-      CENTRAL_BICYCLE_RENTAL_PORT: 8000
+    env_file:
+      - ./local-bicycle-rental-su/local-bicycle-rental-su.env
     ports:
       - "8002:8000"
     networks:
@@ -68,12 +58,8 @@ services:
         condition: service_started
       local-bicycle-rental-database-kg:
         condition: service_healthy
-    environment:
-      DATABASE_HOST: local-bicycle-rental-database-kg
-      DATABASE_PORT: 5432
-      DATABASE_NAME: local-bicycle-rental-kg
-      CENTRAL_BICYCLE_RENTAL_HOST: central-bicycle-rental
-      CENTRAL_BICYCLE_RENTAL_PORT: 8000
+    env_file:
+      - ./local-bicycle-rental-kg/local-bicycle-rental-kg.env
     ports:
       - "8003:8000"
     networks:
@@ -89,10 +75,8 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: central-bicycle-rental
+    env_file:
+      - ./central-bicycle-rental/central-bicycle-rental-database.env
     volumes:
       - central-bicycle-rental-database-data:/var/lib/postgresql/data
     ports:
@@ -109,10 +93,8 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: local-bicycle-rental-ns
+    env_file:
+      - ./local-bicycle-rental-ns/local-bicycle-rental-database-ns.env
     volumes:
       - local-bicycle-rental-database-ns-data:/var/lib/postgresql/data
     ports:
@@ -128,10 +110,8 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: local-bicycle-rental-su
+    env_file:
+      - ./local-bicycle-rental-su/local-bicycle-rental-database-su.env
     volumes:
       - local-bicycle-rental-database-su-data:/var/lib/postgresql/data
     ports:
@@ -147,31 +127,13 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: local-bicycle-rental-kg
+    env_file:
+      - ./local-bicycle-rental-kg/local-bicycle-rental-database-kg.env
     volumes:
       - local-bicycle-rental-database-kg-data:/var/lib/postgresql/data
     ports:
       - "5435:5432"
     networks:
-      - local-bicycle-rental-network-kg
-
-  # Database UI
-  pgadmin:
-    image: dpage/pgadmin4
-    ports:
-      - "8888:80"
-    environment:
-      PGADMIN_DEFAULT_EMAIL: postgres@postgres.com
-      PGADMIN_DEFAULT_PASSWORD: postgres
-    volumes:
-      - pgadmin-data:/var/lib/pgadmin
-    networks:
-      - central-bicycle-rental-network
-      - local-bicycle-rental-network-ns
-      - local-bicycle-rental-network-su
       - local-bicycle-rental-network-kg
 
 volumes:
@@ -183,8 +145,6 @@ volumes:
     name: local-bicycle-rental-database-su-data
   local-bicycle-rental-database-kg-data:
     name: local-bicycle-rental-database-kg-data
-  pgadmin-data:
-    name: pgadmin-data
 
 networks:
   bicycle-rental-network:
