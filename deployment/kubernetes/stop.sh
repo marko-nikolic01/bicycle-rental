@@ -4,6 +4,7 @@
 CENTRAL_FOLDER="central-bicycle-rental"
 NS_FOLDER="local-bicycle-rental-ns"
 SU_FOLDER="local-bicycle-rental-su"
+KG_FOLDER="local-bicycle-rental-kg"
 SHARED_FOLDER="shared"
 
 # Shared resources
@@ -32,6 +33,13 @@ minikube kubectl -- delete -f "$SU_FOLDER/local-bicycle-rental-su-config.yaml"
 minikube kubectl -- delete -f "$SU_FOLDER/local-bicycle-rental-database-su-secret.yaml"
 minikube kubectl -- delete -f "$SU_FOLDER/local-bicycle-rental-database-su-volume-claim.yaml"
 minikube kubectl -- delete -f "$SU_FOLDER/local-bicycle-rental-database-su-volume.yaml"
+
+minikube kubectl -- delete -f "$KG_FOLDER/local-bicycle-rental-kg-deployment.yaml"
+minikube kubectl -- delete -f "$KG_FOLDER/local-bicycle-rental-database-kg-deployment.yaml"
+minikube kubectl -- delete -f "$KG_FOLDER/local-bicycle-rental-kg-config.yaml"
+minikube kubectl -- delete -f "$KG_FOLDER/local-bicycle-rental-database-kg-secret.yaml"
+minikube kubectl -- delete -f "$KG_FOLDER/local-bicycle-rental-database-kg-volume-claim.yaml"
+minikube kubectl -- delete -f "$KG_FOLDER/local-bicycle-rental-database-kg-volume.yaml"
 
 # Print remaining resources
 minikube kubectl -- get pods

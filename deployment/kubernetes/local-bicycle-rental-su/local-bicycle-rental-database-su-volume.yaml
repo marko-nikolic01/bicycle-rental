@@ -8,6 +8,6 @@ spec:
   accessModes:
     - ReadWriteOnce
   storageClassName: standard
-  persistentVolumeReclaimPolicy: Delete
+  persistentVolumeReclaimPolicy: Retain
   hostPath:
     path: "/mnt/data/local-bicycle-rental-database-su"

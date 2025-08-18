@@ -4,6 +4,7 @@
 CENTRAL_FOLDER="central-bicycle-rental"
 NS_FOLDER="local-bicycle-rental-ns"
 SU_FOLDER="local-bicycle-rental-su"
+KG_FOLDER="local-bicycle-rental-kg"
 SHARED_FOLDER="shared"
 
 # Central bicycle rental
@@ -28,6 +29,13 @@ minikube kubectl -- apply -f "$SU_FOLDER/local-bicycle-rental-database-su-volume
 minikube kubectl -- apply -f "$SU_FOLDER/local-bicycle-rental-database-su-volume-claim.yaml"
 minikube kubectl -- apply -f "$SU_FOLDER/local-bicycle-rental-database-su-deployment.yaml"
 minikube kubectl -- apply -f "$SU_FOLDER/local-bicycle-rental-su-deployment.yaml"
+
+minikube kubectl -- apply -f "$KG_FOLDER/local-bicycle-rental-database-kg-secret.yaml"
+minikube kubectl -- apply -f "$KG_FOLDER/local-bicycle-rental-kg-config.yaml"
+minikube kubectl -- apply -f "$KG_FOLDER/local-bicycle-rental-database-kg-volume.yaml"
+minikube kubectl -- apply -f "$KG_FOLDER/local-bicycle-rental-database-kg-volume-claim.yaml"
+minikube kubectl -- apply -f "$KG_FOLDER/local-bicycle-rental-database-kg-deployment.yaml"
+minikube kubectl -- apply -f "$KG_FOLDER/local-bicycle-rental-kg-deployment.yaml"
 
 # Shared resources
 echo "Waiting for NGINX Ingress Controller to be ready..."
