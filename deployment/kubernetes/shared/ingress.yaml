@@ -22,3 +22,10 @@ spec:
             name: local-bicycle-rental-ns
             port:
               number: 8000
+      - path: /local-bicycle-rental-su(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: local-bicycle-rental-su
+            port:
+              number: 8000
