@@ -29,7 +29,7 @@ def seed_bicycles():
             print("Seeding bicycle data...")
             bicycles = []
             for bicycle_type in BicycleType:
-                for _ in range(250):
+                for _ in range(5):
                     bicycles.append(Bicycle(type=bicycle_type))
             db.add_all(bicycles)
             db.commit()
