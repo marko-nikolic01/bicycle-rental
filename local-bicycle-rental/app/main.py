@@ -10,10 +10,10 @@ def create_app():
         try:
             Base.metadata.create_all(bind=engine)
             seed_bicycles()
-            print("Database ready...")
+            print("Database ready...", flush=True)
             break
         except Exception as e:
-            print(f"Database not ready, retrying in {retry_interval}s... ({attempt+1}/{max_retries})")
+            print(f"Database not ready, retrying in {retry_interval}s... ({attempt+1}/{max_retries})", flush=True)
             time.sleep(retry_interval)
     else:
         raise RuntimeError("Could not connect to the database after multiple attempts.")
