@@ -1,0 +1,790 @@
+{
+	"info": {
+		"_postman_id": "a1ab7905-a70f-4639-8969-8e9266a2fcad",
+		"name": "Bicycle rental",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27785030"
+	},
+	"item": [
+		{
+			"name": "DOCKER - REGISTER USER - NS",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Marko\",\n  \"last_name\": \"Nikolic\",\n  \"national_id\": \"2112001820001\",\n  \"address\": {\n    \"country\": \"Serbia\",\n    \"city\": \"Novi Sad\",\n    \"street\": \"Somborska\",\n    \"number\": \"13\"\n  }\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8001/api/users/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"api",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DOCKER - REGISTER USER - SU",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Marko\",\n  \"last_name\": \"Nikolic\",\n  \"national_id\": \"2112001820001\",\n  \"address\": {\n    \"country\": \"Serbia\",\n    \"city\": \"Novi Sad\",\n    \"street\": \"Somborska\",\n    \"number\": \"13\"\n  }\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8002/api/users/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8002",
+					"path": [
+						"api",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DOCKER - REGISTER USER - KG",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Marko\",\n  \"last_name\": \"Nikolic\",\n  \"national_id\": \"2112001820001\",\n  \"address\": {\n    \"country\": \"Serbia\",\n    \"city\": \"Novi Sad\",\n    \"street\": \"Somborska\",\n    \"number\": \"13\"\n  }\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8003/api/users/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8003",
+					"path": [
+						"api",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DOCKER  - GET ALL USERS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/users/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DOCKER - GET USER BY ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/users/2112001820001",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"users",
+						"2112001820001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DOCKER - GET ALL BICYCLES NS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8001/api/bicycles/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"api",
+						"bicycles",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DOCKER - GET ALL BICYCLES SU",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8002/api/bicycles/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8002",
+					"path": [
+						"api",
+						"bicycles",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DOCKER - GET ALL BICYCLES KG",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8003/api/bicycles/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8003",
+					"path": [
+						"api",
+						"bicycles",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DOCKER - RENT BICYCLE NS",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"national_id\": \"2112001820001\",\n  \"bicycle_id\": \"389f135d-f3bd-43fb-9ded-313e10300a7c\",\n  \"bicycle_type\": \"MOUNTAIN\",\n  \"rental_date\": \"2025-08-10T15:30:00Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8001/api/rentals/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"api",
+						"rentals",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DOCKER - RENT BICYCLE SU",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"national_id\": \"2112001820001\",\n  \"bicycle_id\": \"aeea7949-102c-4f69-8538-0a8f48ed8689\",\n  \"bicycle_type\": \"MOUNTAIN\",\n  \"rental_date\": \"2025-08-10T15:30:00Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8002/api/rentals/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8002",
+					"path": [
+						"api",
+						"rentals",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DOCKER - RENT BICYCLE KG",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"national_id\": \"2112001820001\",\n  \"bicycle_id\": \"78efc77f-a4d9-4299-994e-aee047bd06bf\",\n  \"bicycle_type\": \"MOUNTAIN\",\n  \"rental_date\": \"2025-08-10T15:30:00Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8003/api/rentals/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8003",
+					"path": [
+						"api",
+						"rentals",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DOCKER - RETURN BICYCLE NS",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"national_id\": \"2112001820001\",\n  \"bicycle_id\": \"389f135d-f3bd-43fb-9ded-313e10300a7c\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8001/api/rentals/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"api",
+						"rentals",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DOCKER - RETURN BICYCLE SU",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"national_id\": \"2112001820001\",\n  \"bicycle_id\": \"aeea7949-102c-4f69-8538-0a8f48ed8689\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8002/api/rentals/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8002",
+					"path": [
+						"api",
+						"rentals",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DOCKER - RETURN BICYCLE KG",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"national_id\": \"2112001820001\",\n  \"bicycle_id\": \"78efc77f-a4d9-4299-994e-aee047bd06bf\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8003/api/rentals/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8003",
+					"path": [
+						"api",
+						"rentals",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KUBERNETES - REGISTER USER NS",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Marko\",\n  \"last_name\": \"Nikolic\",\n  \"national_id\": \"2112001820001\",\n  \"address\": {\n    \"country\": \"Serbia\",\n    \"city\": \"Novi Sad\",\n    \"street\": \"Somborska\",\n    \"number\": \"13\"\n  }\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.49.2/local-bicycle-rental-ns/api/users/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"49",
+						"2"
+					],
+					"path": [
+						"local-bicycle-rental-ns",
+						"api",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KUBERNETES - REGISTER USER SU",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Marko\",\n  \"last_name\": \"Nikolic\",\n  \"national_id\": \"2112001820001\",\n  \"address\": {\n    \"country\": \"Serbia\",\n    \"city\": \"Novi Sad\",\n    \"street\": \"Somborska\",\n    \"number\": \"13\"\n  }\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.49.2/local-bicycle-rental-su/api/users/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"49",
+						"2"
+					],
+					"path": [
+						"local-bicycle-rental-su",
+						"api",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KUBERNETES - REGISTER USER KG",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Marko\",\n  \"last_name\": \"Nikolic\",\n  \"national_id\": \"2112001820001\",\n  \"address\": {\n    \"country\": \"Serbia\",\n    \"city\": \"Novi Sad\",\n    \"street\": \"Somborska\",\n    \"number\": \"13\"\n  }\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.49.2/local-bicycle-rental-kg/api/users/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"49",
+						"2"
+					],
+					"path": [
+						"local-bicycle-rental-kg",
+						"api",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KUBERNETES - GET ALL BICYCLES NS",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.49.2/local-bicycle-rental-ns/api/bicycles/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"49",
+						"2"
+					],
+					"path": [
+						"local-bicycle-rental-ns",
+						"api",
+						"bicycles",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KUBERNETES - GET ALL BICYCLES SU",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.49.2/local-bicycle-rental-su/api/bicycles/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"49",
+						"2"
+					],
+					"path": [
+						"local-bicycle-rental-su",
+						"api",
+						"bicycles",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KUBERNETES - GET ALL BICYCLES KG",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.49.2/local-bicycle-rental-kg/api/bicycles/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"49",
+						"2"
+					],
+					"path": [
+						"local-bicycle-rental-kg",
+						"api",
+						"bicycles",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KUBERNETES - RENT BICYCLE NS",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"national_id\": \"2112001820001\",\n  \"bicycle_id\": \"ea337759-7514-40c2-80c6-5a05a32bf1c8\",\n  \"bicycle_type\": \"MOUNTAIN\",\n  \"rental_date\": \"2025-08-10T15:30:00Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.49.2/local-bicycle-rental-ns/api/rentals/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"49",
+						"2"
+					],
+					"path": [
+						"local-bicycle-rental-ns",
+						"api",
+						"rentals",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KUBERNETES - RENT BICYCLE SU",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"national_id\": \"2112001820001\",\n  \"bicycle_id\": \"ea337759-7514-40c2-80c6-5a05a32bf1c8\",\n  \"bicycle_type\": \"MOUNTAIN\",\n  \"rental_date\": \"2025-08-10T15:30:00Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.49.2/local-bicycle-rental-su/api/rentals/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"49",
+						"2"
+					],
+					"path": [
+						"local-bicycle-rental-su",
+						"api",
+						"rentals",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KUBERNETES - RENT BICYCLE KG",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"national_id\": \"2112001820001\",\n  \"bicycle_id\": \"ea337759-7514-40c2-80c6-5a05a32bf1c8\",\n  \"bicycle_type\": \"MOUNTAIN\",\n  \"rental_date\": \"2025-08-10T15:30:00Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.49.2/local-bicycle-rental-kg/api/rentals/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"49",
+						"2"
+					],
+					"path": [
+						"local-bicycle-rental-kg",
+						"api",
+						"rentals",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KUBERNETES - RETURN BICYCLE NS",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"national_id\": \"2112001820001\",\n  \"bicycle_id\": \"ea337759-7514-40c2-80c6-5a05a32bf1c8\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.49.2/local-bicycle-rental-ns/api/rentals/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"49",
+						"2"
+					],
+					"path": [
+						"local-bicycle-rental-ns",
+						"api",
+						"rentals",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KUBERNETES - RETURN BICYCLE SU",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"national_id\": \"2112001820001\",\n  \"bicycle_id\": \"ea337759-7514-40c2-80c6-5a05a32bf1c8\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.49.2/local-bicycle-rental-su/api/rentals/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"49",
+						"2"
+					],
+					"path": [
+						"local-bicycle-rental-su",
+						"api",
+						"rentals",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KUBERNETES - RETURN BICYCLE KG",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"national_id\": \"2112001820001\",\n  \"bicycle_id\": \"ea337759-7514-40c2-80c6-5a05a32bf1c8\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.49.2/local-bicycle-rental-kg/api/rentals/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"49",
+						"2"
+					],
+					"path": [
+						"local-bicycle-rental-kg",
+						"api",
+						"rentals",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

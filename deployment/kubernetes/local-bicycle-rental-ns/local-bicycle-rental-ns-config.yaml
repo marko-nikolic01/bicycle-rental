@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: local-bicycle-rental-ns-config
 data:
-  DATABASE_HOST: local-bicycle-rental-database-ns
+  DATABASE_HOST: localhost
   DATABASE_PORT: "5432"
   DATABASE_NAME: local-bicycle-rental-ns
   CENTRAL_BICYCLE_RENTAL_HOST: central-bicycle-rental

@@ -20,6 +20,24 @@ spec:
             name: local-bicycle-rental-ns-config
         ports:
         - containerPort: 8000
+
+      - name: local-bicycle-rental-database-ns
+        image: postgres:15
+        envFrom:
+        - secretRef:
+            name: local-bicycle-rental-database-ns-secret
+        - configMapRef:
+            name: local-bicycle-rental-ns-config
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: local-bicycle-rental-database-ns-storage
+          mountPath: /var/lib/postgresql/data
+          
+      volumes:
+      - name: local-bicycle-rental-database-ns-storage
+        persistentVolumeClaim:
+          claimName: local-bicycle-rental-database-ns-pvc
 ---
 apiVersion: v1
 kind: Service

@@ -20,6 +20,24 @@ spec:
             name: central-bicycle-rental-config
         ports:
         - containerPort: 8000
+
+      - name: central-bicycle-rental-database
+        image: postgres:15
+        envFrom:
+        - secretRef:
+            name: central-bicycle-rental-database-secret
+        - configMapRef:
+            name: central-bicycle-rental-config
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: central-bicycle-rental-database-storage
+          mountPath: /var/lib/postgresql/data
+
+      volumes:
+      - name: central-bicycle-rental-database-storage
+        persistentVolumeClaim:
+          claimName: central-bicycle-rental-database-pvc
 ---
 apiVersion: v1
 kind: Service

@@ -12,6 +12,18 @@ spec:
       labels:
         app: local-bicycle-rental-su
     spec:
+      initContainers:
+      - name: wait-for-db
+        image: busybox
+        command:
+          - sh
+          - -c
+          - |
+            until nc -z localhost 5432; do
+              echo "Waiting for database..."
+              sleep 2
+            done
+            
       containers:
       - name: local-bicycle-rental-su
         image: markoni01/local-bicycle-rental:latest
@@ -20,6 +32,24 @@ spec:
             name: local-bicycle-rental-su-config
         ports:
         - containerPort: 8000
+
+      - name: local-bicycle-rental-database-su
+        image: postgres:15
+        envFrom:
+        - secretRef:
+            name: local-bicycle-rental-database-su-secret
+        - configMapRef:
+            name: local-bicycle-rental-su-config
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: local-bicycle-rental-database-su-storage
+          mountPath: /var/lib/postgresql/data
+
+      volumes:
+      - name: local-bicycle-rental-database-su-storage
+        persistentVolumeClaim:
+          claimName: local-bicycle-rental-database-su-pvc
 ---
 apiVersion: v1
 kind: Service
