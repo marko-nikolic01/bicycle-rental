@@ -11,19 +11,7 @@ spec:
     metadata:
       labels:
         app: local-bicycle-rental-su
-    spec:
-      initContainers:
-      - name: wait-for-db
-        image: busybox
-        command:
-          - sh
-          - -c
-          - |
-            until nc -z localhost 5432; do
-              echo "Waiting for database..."
-              sleep 2
-            done
-            
+    spec:   
       containers:
       - name: local-bicycle-rental-su
         image: markoni01/local-bicycle-rental:latest
